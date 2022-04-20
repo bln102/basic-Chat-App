@@ -23,16 +23,18 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+    let name = prompt("Please enter a username :");
+
     var socket = io();
 
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
-
+    
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-        socket.emit('chat message', input.value);
+        socket.emit('chat message', name +' : '+ input.value);
         input.value = '';
         }
     });
