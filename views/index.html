@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Chat app</title>
     <style>
         body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #b1eeeb; }
 
@@ -39,17 +39,9 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-        socket.emit('chat message', input.value);
+        socket.emit('chat message', name + ' : ' + input.value);
         input.value = '';
         }
-    });
-
-    socket.on('chat message', function(msg) {
-        var item = document.createElement('li');
-        item.className = "message";
-        item.textContent = name + ' : '+msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
     });
 
     socket.on('new user', function(usr) {
@@ -59,6 +51,15 @@
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });
+
+    socket.on('chat message', function(msg) {
+        var item = document.createElement('li');
+        item.className = "message";
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+
     </script>
   </body>
 </html>
