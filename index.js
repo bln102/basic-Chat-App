@@ -11,10 +11,16 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
+    
+    socket.on('chat message', (msg) => {
+      io.emit('chat message', msg);
     });
-});
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+
+  });
 
 server.listen(3000, () => {
   console.log('listening on localhost:3000');
